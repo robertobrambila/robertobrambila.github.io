@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!-- Wake up, ... 
+██████╗   █████╗ 
+██╔════╝  ██╔══╝ 
+█████╗    █████╗ 
+██╔══╝    ╚══██║ 
+██║       █████╔╝
+F$ | est. MCMLXXXVI -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Initializing... | FutureSupervillain</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Handjet:wght@400&family=IBM+Plex+Mono:wght@400;600&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #050607;
+        color: #e8e8e8;
+        font-family: "Space Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+          Consolas, "Liberation Mono", monospace;
+      }
+      .wrap {
+        width: min(720px, calc(100% - 48px));
+        text-align: center;
+        display: grid;
+        gap: 18px;
+        padding: 24px 0;
+      }
+      .logo {
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        opacity: 0.5;
+      }
+      .headline {
+        font-size: clamp(37px, 6.6vw, 59px);
+        font-family: "Handjet", ui-monospace, SFMono-Regular, Menlo, Monaco,
+          Consolas, "Liberation Mono", monospace;
+        font-weight: 400;
+        color: rgba(232, 232, 232, 0.5);
+      }
+      .headline .prefix {
+        color: #e8e8e8;
+      }
+      .headline .c-with-cursor {
+        position: relative;
+        display: inline-block;
+      }
+      .headline .cursor {
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        color: #e8e8e8;
+        animation: blink 1s steps(2, end) infinite;
+      }
+      @keyframes blink {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      .email {
+        opacity: 0.9;
+        font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo,
+          Monaco, Consolas, "Liberation Mono", monospace;
+        font-size: clamp(12.8px, 2vw, 16px);
+      }
+      a {
+        color: rgba(232, 232, 232, 0.25);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(232, 232, 232, 0.25);
+      }
+      a:hover {
+        color: rgba(232, 232, 232, 1);
+        border-bottom-color: rgba(232, 232, 232, 0.65);
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="wrap">
+      <div class="headline">
+        <span class="prefix">F$:~ </span
+        ><span
+          ><span class="c-with-cursor">C<span class="cursor">_</span></span
+          >oming.Soon™
+        </span>
+      </div>
+      <div class="email">
+        <a href="mailto:hi@futuresupervillain.com">hi@futuresupervillain.com</a>
+      </div>
+    </main>
+  </body>
+</html>
