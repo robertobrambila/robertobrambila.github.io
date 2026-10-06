@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en" class="is-loading">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-LbAaYq819n1O8pnHSMp3FAXFT/qp3uhgTP/Gjx+9K60='; style-src 'self'; img-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <!-- Private beta: kept out of search results until Cue launches publicly. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Cue turns your script into cues only you can see. Glance at one, and the line comes back. Practice with less on screen each run, with notes from an AI coach.">
+  <title>Cue — The page goes blank. You don’t.</title>
+  <script>
+    // Marks scripting as available, and hides what the page intro brings in, before the first paint.
+    document.documentElement.classList.add("js");
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("is-intro");
+  </script>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <a class="wordmark" href="./" data-intro="0"><span>Cue</span></a>
+    <button class="top__link" type="button" data-features aria-haspopup="dialog" data-intro="60">
+      Features
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+    </button>
+  </header>
+
+  <main class="hero">
+    <div class="pitch">
+      <div class="eyebrow scenarios" data-scenarios data-intro="120">
+        <span id="scenarios-label">Speaker notes for your</span>
+        <span class="scenarios__list" role="group" aria-labelledby="scenarios-label">
+          <button type="button" data-scenario="all-hands" aria-pressed="true">All-hands</button>
+          <span class="scenarios__sep" aria-hidden="true">/</span>
+          <button type="button" data-scenario="interview" aria-pressed="false">Interview</button>
+          <span class="scenarios__sep" aria-hidden="true">/</span>
+          <button type="button" data-scenario="class" aria-pressed="false">Class</button>
+        </span>
+      </div>
+      <h1 data-headline>
+        <span class="visually-hidden">The page goes blank. You don’t.</span>
+        <span class="headline" aria-hidden="true">
+          <span class="headline__item is-current"><span class="headline__row">The page goes</span><span class="headline__row">blank. <mark>You don’t.</mark></span></span>
+          <span class="headline__item"><span class="headline__row">Every line,</span><span class="headline__row"><mark>right on cue.</mark></span></span>
+          <span class="headline__item"><span class="headline__row">Notes you’ll need</span><span class="headline__row"><mark>less every time.</mark></span></span>
+          <span class="headline__item"><span class="headline__row">Off book,</span><span class="headline__row"><mark>on cue.</mark></span></span>
+        </span>
+      </h1>
+      <p class="lede" data-intro="220">Cue turns your script into cues only you can see. Glance at one, and the line comes back. Practice with a little less on screen each run, and get notes from an AI coach.</p>
+      <p class="actions">
+        <a class="button button--primary" href="https://github.com/robertobrambila/cue/releases/latest" data-intro="300">
+          Download for Mac
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6.5 13.5 12 19l5.5-5.5"/></svg>
+        </a>
+        <a class="button button--quiet" href="https://github.com/robertobrambila/cue" data-intro="340">View source</a>
+      </p>
+      <p class="fine" data-intro="400">Free and open source · macOS 26.5 or later</p>
+    </div>
+
+    <section class="demo" aria-labelledby="demo-title">
+      <h2 id="demo-title" class="visually-hidden">How Cue works</h2>
+
+      <div class="stage" data-stage data-step="script" role="img" aria-label="Cue in edit mode beside a slide titled Three of four.">
+        <div class="slide" data-intro="160">
+          <p class="slide__kicker" data-slot="kicker">Q3 all-hands</p>
+          <div class="slide__heading">
+            <p class="slide__title" data-slot="title">Three of four</p>
+            <p class="slide__sub" data-slot="sub">Goals we hit this quarter</p>
+            <div class="slide__visual" data-slot="visual" aria-hidden="true"><svg viewBox="0 0 134 28"><circle class="v-fill" cx="14" cy="14" r="12"/><path class="v-tick" d="M8.5 14.5l3.8 3.8 7.2-7.6"/><circle class="v-fill" cx="48" cy="14" r="12"/><path class="v-tick" d="M42.5 14.5l3.8 3.8 7.2-7.6"/><circle class="v-fill" cx="82" cy="14" r="12"/><path class="v-tick" d="M76.5 14.5l3.8 3.8 7.2-7.6"/><circle class="v-ring" cx="120" cy="14" r="11.2"/></svg></div>
+          </div>
+          <p class="slide__num" data-slot="num">4</p>
+        </div>
+
+        <div class="cw" data-intro="280" data-intro-lift>
+          <div class="cw__chrome">
+            <div class="cw__chrome-inner">
+              <div class="cw__titlebar">
+                <span class="cw__lights"><i></i><i></i><i></i></span>
+                <span class="cw__title"><b class="cw__dot"></b><span data-slot="file">Q3 All-Hands — Edited</span></span>
+              </div>
+              <div class="cw__toolbar">
+                <span class="cw__tools">
+                  <svg viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 12h3M11 12h9M4 17h11M19 17h1"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+                  <svg viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><path d="M6.5 10h.5M9.75 10h.5M13 10h.5M16.5 10h.5M6.5 13.5h.5M17 13.5h.5M9.5 14h5"/></svg>
+                </span>
+                <span class="cw__actions"><span>Practice</span><span>Present</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="cw__body">
+            <p class="cw__page" data-slot="page">Our Q3 goals</p>
+            <ol class="cw__blocks">
+              <li class="cw__block">
+                <span class="cw__num">1</span>
+                <span class="cw__cue">
+                  <svg class="cw__pin" viewBox="0 0 24 24"><path d="M8 3.5h8v1.7l-1.7 1 .6 5 2.6 2.4v1.6h-4.6v6.3L12 22.5l-.9-1V15.2H6.5v-1.6L9.1 11.2l.6-5-1.7-1z"/></svg>
+                  <span class="cw__cue-text"><span class="cw__word">hit three</span><span class="cw__letters">W s f g t q, a w h t.</span></span>
+                </span>
+                <span class="cw__line"><span>We set four goals this quarter, and we hit three.</span></span>
+              </li>
+              <li class="cw__block">
+                <span class="cw__num">2</span>
+                <span class="cw__cue">
+                  <svg class="cw__pin" viewBox="0 0 24 24"><path d="M8 3.5h8v1.7l-1.7 1 .6 5 2.6 2.4v1.6h-4.6v6.3L12 22.5l-.9-1V15.2H6.5v-1.6L9.1 11.2l.6-5-1.7-1z"/></svg>
+                  <span class="cw__cue-text"><span class="cw__word">hiring too late</span><span class="cw__letters">T f s b w s h t l.</span></span>
+                </span>
+                <span class="cw__line"><span>The fourth slipped because we started hiring too late.</span></span>
+              </li>
+              <li class="cw__block">
+                <span class="cw__num">3</span>
+                <span class="cw__cue">
+                  <svg class="cw__pin" viewBox="0 0 24 24"><path d="M8 3.5h8v1.7l-1.7 1 .6 5 2.6 2.4v1.6h-4.6v6.3L12 22.5l-.9-1V15.2H6.5v-1.6L9.1 11.2l.6-5-1.7-1z"/></svg>
+                  <span class="cw__cue-text"><span class="cw__word">before the holidays</span><span class="cw__letters">H h w l i b t h.</span></span>
+                </span>
+                <span class="cw__line"><span>Here’s how we land it before the holidays.</span></span>
+              </li>
+            </ol>
+          </div>
+
+          <div class="cw__foot cw__foot--edit">
+            <span class="cw__side">
+              <svg viewBox="0 0 24 24"><path d="M5 7h14M10 7V5h4v2M7 7l1 12.5h8L17 7"/></svg>
+            </span>
+            <span class="cw__pager">
+              <svg viewBox="0 0 24 24"><path d="M14.5 6.5 9 12l5.5 5.5"/></svg>
+              1 / 3
+              <svg viewBox="0 0 24 24"><path d="M9.5 6.5 15 12l-5.5 5.5"/></svg>
+            </span>
+            <span class="cw__side cw__side--end">
+              <svg viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="12" rx="2"/><path d="M15.5 8.5V6a2 2 0 0 0-2-2h-7a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h2"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </span>
+          </div>
+
+          <div class="cw__foot cw__foot--present">
+            <p class="cw__status">
+              <svg viewBox="0 0 24 24"><path d="M3 12s3.5-6 9-6 9 6 9 6-3.5 6-9 6-9-6-9-6z"/><circle cx="12" cy="12" r="2.6"/><path d="M4 4l16 16"/></svg>
+              <span>1 / 3</span><span class="cw__open">&nbsp;· 1 of 3 open</span>
+              <svg viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><path d="M6.5 10h.5M9.75 10h.5M13 10h.5M16.5 10h.5M6.5 13.5h.5M17 13.5h.5M9.5 14h5"/></svg>
+            </p>
+            <p class="cw__hints">⌘← ⌘→ pages · ⌘E expand · ⌘/ all keys</p>
+          </div>
+
+          <div class="cw__foot cw__foot--practice">
+            <span class="cw__run">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 13V9.5M10 3.5h4M12 3.5V6"/></svg>
+              <span data-clock>0:41</span> · Page 1 of 3
+              <i></i>
+              End Run
+            </span>
+          </div>
+
+          <p class="cw__ghost">
+            <svg viewBox="0 0 24 24"><path d="M3 12s3.5-6 9-6 9 6 9 6-3.5 6-9 6-9-6-9-6z"/><circle cx="12" cy="12" r="2.6"/><path d="M4 4l16 16"/></svg>
+            Hidden from screen sharing
+          </p>
+        </div>
+
+        <span class="pointer"><svg viewBox="0 0 24 24"><path d="M5.5 2.8v17.4l4.4-4.2 2.9 6.4 2.8-1.2-2.8-6.3h6.1z"/></svg></span>
+      </div>
+
+      <div class="steps" data-intro="460">
+        <div class="step-bar">
+          <ol class="tabs" aria-label="Steps">
+            <li><button class="tab" type="button" data-step-tab="script"><span class="tab__bar"><span class="tab__fill"></span></span>Script</button></li>
+            <li><button class="tab" type="button" data-step-tab="present"><span class="tab__bar"><span class="tab__fill"></span></span>Present</button></li>
+            <li><button class="tab" type="button" data-step-tab="private"><span class="tab__bar"><span class="tab__fill"></span></span>Only you</button></li>
+            <li><button class="tab" type="button" data-step-tab="offbook"><span class="tab__bar"><span class="tab__fill"></span></span>Off book</button></li>
+          </ol>
+          <button class="autoplay" type="button" data-autoplay aria-label="Pause animation">
+            <svg class="autoplay__pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="5.5" width="3.4" height="13" rx="1"/><rect x="13.6" y="5.5" width="3.4" height="13" rx="1"/></svg>
+            <svg class="autoplay__play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.8v12.4a.8.8 0 0 0 1.2.7l9.6-6.2a.8.8 0 0 0 0-1.4L9.7 5.1a.8.8 0 0 0-1.2.7z"/></svg>
+          </button>
+        </div>
+        <div class="captions" data-captions aria-live="off">
+          <p class="caption is-current" data-step-caption="script" data-label="Cue in edit mode beside a slide titled Three of four: three lines of script, each with a short cue above it.">Write the talk once, and give each line a cue: the few words that bring it back.</p>
+          <p class="caption" data-step-caption="present" data-label="Cue in present mode over the slide, showing only three cues. A pointer hovers the cue hiring too late, and its full line comes back, pinned in yellow." hidden>Present, and every line collapses to its cue. Hover one, and the line comes back.</p>
+          <p class="caption" data-step-caption="private" data-label="What the audience sees: only the slide. Cue's window is hidden from the share, shown here as a dashed outline." hidden>Share your screen, and the room sees only your slide. Cue stays out of the share.</p>
+          <p class="caption" data-step-caption="offbook" data-label="Cue in practice mode, stepping from the first letters of each line, to the cues, to an empty page, with a run timer below." hidden>Rehearse with less each run: first letters, then cues, then nothing at all.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="features" data-features-dialog aria-labelledby="features-title">
+    <div class="features__sheet">
+      <button class="features__close" type="button" data-close aria-label="Close" autofocus>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg>
+      </button>
+      <div class="features__body">
+        <p class="eyebrow">Features</p>
+        <h2 id="features-title">From first draft <mark>to speech day.</mark></h2>
+        <ol class="features__groups">
+          <li class="features__group">
+            <span class="features__num" aria-hidden="true">01</span>
+            <div>
+              <h3>Write it once.</h3>
+              <ul>
+                <li>Paste a script, and Cue splits it into thoughts.</li>
+                <li>Give each one a cue, or let Cue suggest one.</li>
+                <li>Bring in speaker notes from PowerPoint.</li>
+              </ul>
+            </div>
+          </li>
+          <li class="features__group">
+            <span class="features__num" aria-hidden="true">02</span>
+            <div>
+              <h3>Get off book.</h3>
+              <ul>
+                <li>Rehearse with a little less on screen each run.</li>
+                <li>First letters, then cues, then nothing at all.</li>
+                <li>Track recall and personal bests to speech day.</li>
+              </ul>
+            </div>
+          </li>
+          <li class="features__group">
+            <span class="features__num" aria-hidden="true">03</span>
+            <div>
+              <h3>A coach you choose.</h3>
+              <ul>
+                <li>After a run: what worked, and what to practice.</li>
+                <li>Use GitHub Copilot, a local model with Ollama, or your own OpenAI or Anthropic key.</li>
+                <li>Transcribed on your Mac. Review before it’s sent.</li>
+              </ul>
+            </div>
+          </li>
+          <li class="features__group">
+            <span class="features__num" aria-hidden="true">04</span>
+            <div>
+              <h3>Present from a glance.</h3>
+              <ul>
+                <li>Lines collapse to cues. Hover to peek, click to pin.</li>
+                <li>Open a whole page at once with <kbd>⌘E</kbd>.</li>
+                <li>A big title on each page for its key message.</li>
+              </ul>
+            </div>
+          </li>
+          <li class="features__group">
+            <span class="features__num" aria-hidden="true">05</span>
+            <div>
+              <h3>Keep your place.</h3>
+              <ul>
+                <li>Cue can follow your PowerPoint or Keynote deck.</li>
+                <li>Someone else driving? Say “next slide.”</li>
+                <li>Shortcuts work while your slides are in front.</li>
+              </ul>
+            </div>
+          </li>
+          <li class="features__group">
+            <span class="features__num" aria-hidden="true">06</span>
+            <div>
+              <h3>Only you see it.</h3>
+              <ul>
+                <li>Cue stays out of screen shares and recordings.</li>
+                <li>Place it beside Teams or under your camera.</li>
+                <li>A small indicator confirms it’s hidden.</li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+        <div class="features__foot">
+          <p>Free and open source · macOS 26.5 or later</p>
+          <a class="button button--primary" href="https://github.com/robertobrambila/cue/releases/latest">
+            Download for Mac
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6.5 13.5 12 19l5.5-5.5"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>

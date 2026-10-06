@@ -1,0 +1,1354 @@
+@font-face {
+  font-family: "Newsreader";
+  src: url("fonts/newsreader.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/inter.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("fonts/jetbrains-mono.woff2") format("woff2");
+  font-weight: 400 600;
+  font-display: swap;
+}
+
+:root {
+  --paper: #F5F1E8;
+  --sheet: #FBF8F2;
+  --ink: #16140F;
+  --graphite: #6B665C;
+  --desk: #DDD4C2;
+  --cue: #FFD83D;
+  --serif: "Newsreader", Georgia, serif;
+  --sans: "Inter", system-ui, -apple-system, "Helvetica Neue", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+  --mac: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Inter", sans-serif;
+  --ease: cubic-bezier(0.2, 0.7, 0.1, 1);
+  --pad: clamp(20px, 4.4vw, 72px);
+  /* The content's left and right edges: the header, grid, and hero share them. */
+  --edge: max(var(--pad), calc(50vw - 750px + var(--pad)));
+  background: var(--paper);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  margin: 0;
+  color: var(--ink);
+  font: 400 17px / 1.5 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Recall's faint twelve-column grid. */
+body::before {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  inset: 0 var(--edge);
+  border-right: 1px solid rgba(22, 20, 15, 0.045);
+  background: linear-gradient(90deg, rgba(22, 20, 15, 0.045) 1px, transparent 1px) 0 0 / calc(100% / 12) 100%;
+  pointer-events: none;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Header: the wordmark, and the way into the features sheet. */
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px var(--edge) 0;
+}
+
+.top__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 40px;
+  padding: 0 2px;
+  border: 0;
+  border-radius: 6px;
+  color: var(--graphite);
+  background: none;
+  font: 500 13px / 1 var(--mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.top__link svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  transition: transform 0.35s var(--ease);
+}
+
+.top__link:hover {
+  color: var(--ink);
+}
+
+.top__link:hover svg {
+  transform: rotate(90deg);
+}
+
+.wordmark {
+  color: var(--ink);
+  font: 700 28px / 1 var(--serif);
+  letter-spacing: -0.03em;
+  text-decoration: none;
+}
+
+.wordmark span {
+  padding: 0 0.06em;
+  background: linear-gradient(transparent 60%, var(--cue) 60%, var(--cue) 94%, transparent 94%);
+}
+
+/* Hero */
+
+.hero {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 5.2fr) minmax(0, 6.8fr);
+  align-items: center;
+  column-gap: clamp(32px, 5vw, 96px);
+  width: 100%;
+  padding: clamp(20px, 3vh, 44px) var(--edge) clamp(28px, 5vh, 60px);
+}
+
+.pitch {
+  container-type: inline-size;
+}
+
+.eyebrow {
+  margin: 0 0 20px;
+  color: var(--graphite);
+  font: 500 13px / 1.2 var(--mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  /* One size for every headline in the rotation: the widest row fills the column. */
+  font: 700 min(12.8cqi, 84px) / 0.98 var(--serif);
+  letter-spacing: -0.035em;
+}
+
+/* The headlines share one cell, so the column keeps its height as they rotate. */
+.headline {
+  display: grid;
+}
+
+.headline__item {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+
+.headline__item.is-current,
+.headline__item.is-entering,
+.headline__item.is-leaving {
+  visibility: visible;
+}
+
+.headline__row {
+  display: block;
+  white-space: nowrap;
+}
+
+.headline__word {
+  display: inline-block;
+}
+
+h1 mark,
+.features h2 mark {
+  padding: 0 0.04em;
+  color: inherit;
+  background: linear-gradient(transparent 55%, var(--cue) 55%, var(--cue) 90%, transparent 90%) left center / 100% 100% no-repeat;
+}
+
+.lede {
+  max-width: 34ch;
+  margin: 28px 0 0;
+  font: 400 clamp(19px, 1.6vw, 24px) / 1.38 var(--serif);
+  text-wrap: pretty;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 34px 0 0;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 24px;
+  border-radius: 999px;
+  font: 600 16px / 1 var(--sans);
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.button svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.button--primary {
+  color: var(--paper);
+  background: var(--ink);
+}
+
+.button--primary:hover {
+  background: #2E2A22;
+}
+
+.button--quiet {
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+}
+
+.button--quiet:hover {
+  background: rgba(22, 20, 15, 0.06);
+}
+
+.fine {
+  margin: 18px 0 0;
+  color: var(--graphite);
+  font: 400 13px / 1.4 var(--mono);
+}
+
+/* The demo: a slide at the back, Cue's window floating over its corner. */
+
+.demo {
+  container: demo / inline-size;
+  display: grid;
+}
+
+/* The eyebrow doubles as the demo's talk picker: "Speaker notes for your
+   all-hands / interview / class". The chosen talk wears the cue highlight,
+   which hands off to the next choice: out to the right, in from the left. */
+.scenarios {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 0.75em;
+  /* Eases down to 12px so the line holds on laptops; phones wrap it instead. */
+  font-size: clamp(12px, 100cqi / 38.8, 13px);
+}
+
+.scenarios__list {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+}
+
+.scenarios__sep {
+  color: rgba(107, 102, 92, 0.5);
+}
+
+.scenarios button {
+  position: relative;
+  isolation: isolate;
+  margin: -8px 0;
+  padding: 8px 0;
+  border: 0;
+  color: var(--graphite);
+  background: none;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.scenarios button::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 7px -0.35em;
+  background: var(--cue);
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.32s var(--ease);
+}
+
+.scenarios button:hover,
+.scenarios button[aria-pressed="true"] {
+  color: var(--ink);
+}
+
+.scenarios button[aria-pressed="true"]::before {
+  transform: none;
+  transform-origin: left center;
+  transition: transform 0.45s var(--ease) 0.1s;
+}
+
+/* Without scripting the picker can't change the demo, so it reads as a plain
+   eyebrow for the talk the demo shows. */
+html:not(.js) .scenarios button[aria-pressed="false"],
+html:not(.js) .scenarios__sep {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scenarios button::before {
+    transition: none !important;
+  }
+}
+
+.stage {
+  position: relative;
+  grid-area: 1 / 1;
+  aspect-ratio: 64 / 50;
+  font-size: calc(100cqw / 64);
+}
+
+/* Nothing animates until the first frame, so styles never tween in on load. */
+.is-loading *,
+.is-loading *::before,
+.is-loading *::after {
+  transition: none !important;
+}
+
+/* The page intro (script.js) brings these in one by one. Until it starts they
+   stay hidden, and if the script never runs they appear after three seconds. */
+.is-intro [data-intro],
+.is-intro .headline {
+  opacity: 0;
+  animation: intro-failsafe 0s 3s forwards;
+}
+
+@keyframes intro-failsafe {
+  to {
+    opacity: 1;
+  }
+}
+
+.slide {
+  position: absolute;
+  top: 0.5em;
+  right: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  width: 44em;
+  aspect-ratio: 16 / 9;
+  padding: 2.2em 2.6em 1.8em;
+  border-radius: 0.55em;
+  background: var(--sheet);
+  box-shadow: 0 0 0 1px rgba(22, 20, 15, 0.08), 0 2em 4.4em -2em rgba(22, 20, 15, 0.26);
+  opacity: 0.8;
+  transition: opacity 0.7s var(--ease);
+}
+
+.stage[data-step="private"] .slide {
+  opacity: 1;
+}
+
+.slide p {
+  margin: 0;
+}
+
+.slide__kicker,
+.slide__num {
+  justify-self: end;
+  color: var(--graphite);
+  font: 500 0.82em / 1 var(--mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.slide__heading {
+  align-self: center;
+  justify-self: end;
+  text-align: right;
+}
+
+/* One simple drawing per slide, so the slide reads as a real one. */
+.slide__visual {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.4em;
+}
+
+.slide__visual svg {
+  width: 12em;
+  height: auto;
+  overflow: visible;
+}
+
+.slide__visual .v-fill {
+  fill: var(--ink);
+}
+
+.slide__visual .v-muted {
+  fill: rgba(22, 20, 15, 0.2);
+}
+
+.slide__visual .v-ring {
+  fill: none;
+  stroke: var(--graphite);
+  stroke-width: 1.6;
+  stroke-dasharray: 3.2 3.2;
+}
+
+.slide__visual .v-tick {
+  fill: none;
+  stroke: var(--sheet);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.slide__visual .v-card {
+  fill: var(--paper);
+  stroke: rgba(22, 20, 15, 0.3);
+}
+
+.slide__visual .v-line {
+  fill: rgba(22, 20, 15, 0.28);
+}
+
+.slide__visual .v-rule {
+  stroke: rgba(22, 20, 15, 0.3);
+  stroke-width: 1.5;
+}
+
+.slide__visual .v-label {
+  fill: var(--graphite);
+  font: 500 9px var(--mono);
+  letter-spacing: 0.04em;
+}
+
+.slide__title {
+  font: 600 4.8em / 0.92 var(--serif);
+  letter-spacing: -0.035em;
+}
+
+.slide .slide__sub {
+  margin-top: 0.55em;
+  color: var(--graphite);
+  font: 400 1.55em / 1.25 var(--serif);
+}
+
+/* Cue's window, drawn after the app: edit mode, present mode, practice. */
+
+.cw {
+  --text: #F4F4F4;
+  --muted: #8C8C8C;
+  --hair: rgba(255, 255, 255, 0.085);
+  position: absolute;
+  top: 10em;
+  left: 1em;
+  display: flex;
+  flex-direction: column;
+  width: 31em;
+  height: 37.5em;
+  overflow: hidden;
+  border-radius: 1.15em;
+  color: var(--text);
+  background-color: #1E1E1E;
+  font-family: var(--mac);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.07),
+    0 0 0 1px rgba(22, 20, 15, 0.55),
+    0 2.6em 5.4em -2em rgba(22, 20, 15, 0.55),
+    0 1em 2em -1em rgba(22, 20, 15, 0.28);
+  transition: background-color 0.5s var(--ease), box-shadow 0.5s var(--ease);
+}
+
+.cw::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 0.14em dashed rgba(22, 20, 15, 0.45);
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+.cw svg {
+  flex: none;
+  width: 1.45em;
+  height: 1.45em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cw__chrome {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.65s var(--ease), opacity 0.35s;
+}
+
+.cw__chrome-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cw__titlebar {
+  display: flex;
+  align-items: center;
+  gap: 1.1em;
+  height: 3em;
+  padding: 0 1.1em;
+}
+
+.cw__lights {
+  display: flex;
+  gap: 0.65em;
+}
+
+.cw__lights i {
+  width: 1.05em;
+  height: 1.05em;
+  border-radius: 50%;
+  background: #4B4B4B;
+}
+
+.cw__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  color: #C9C9C9;
+  font-size: 1.2em;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.cw__dot {
+  width: 0.62em;
+  height: 0.62em;
+  border-radius: 50%;
+  background: var(--cue);
+}
+
+.cw__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 3em;
+  padding: 0 1.1em;
+  border-bottom: 1px solid var(--hair);
+  color: #9C9C9C;
+}
+
+.cw__tools {
+  display: flex;
+  gap: 1.25em;
+}
+
+.cw__actions {
+  display: flex;
+  gap: 1.3em;
+  color: #B5B5B5;
+  font-size: 1.2em;
+}
+
+.cw__body {
+  flex: 1;
+  min-height: 0;
+  padding: 1.7em 1.8em 0 3.2em;
+  transition: padding 0.65s var(--ease), opacity 0.35s;
+}
+
+.cw__page {
+  margin: 0 0 0.45em;
+  color: #EDEDED;
+  font-size: 1.9em;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  transition: font-size 0.65s var(--ease), margin 0.65s var(--ease), color 0.4s;
+}
+
+.cw__blocks {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cw__block {
+  position: relative;
+  padding: 0.85em 0 0.9em;
+  border-top: 1px solid var(--hair);
+  transition: padding 0.65s var(--ease), border-color 0.4s;
+}
+
+.cw__block:first-child {
+  padding-top: 0.4em;
+  border-top-color: transparent;
+}
+
+.cw__num {
+  position: absolute;
+  top: 2.45em;
+  left: -1.75em;
+  color: #767676;
+  font-size: 1.05em;
+  transition: opacity 0.3s;
+}
+
+.cw__block:first-child .cw__num {
+  top: 2.02em;
+}
+
+.cw__cue {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.3em;
+  color: var(--muted);
+  font-size: 1.05em;
+  font-weight: 500;
+  transition: font-size 0.65s var(--ease), color 0.45s, margin 0.65s var(--ease), font-weight 0.5s;
+}
+
+.cw .cw__pin {
+  width: 0;
+  height: 0.95em;
+  margin-right: 0;
+  opacity: 0;
+  fill: currentColor;
+  stroke: none;
+  transition: width 0.3s var(--ease), margin 0.3s var(--ease), opacity 0.3s;
+}
+
+.cw__cue-text {
+  display: grid;
+}
+
+.cw__word,
+.cw__letters {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  transition: opacity 0.45s, color 0.35s, text-decoration-color 0.35s;
+}
+
+.cw__word {
+  text-decoration: underline transparent 0.07em;
+  text-underline-offset: 0.2em;
+}
+
+.cw__letters {
+  opacity: 0;
+  font-size: 0.86em;
+  letter-spacing: 0.02em;
+}
+
+.cw__line {
+  display: grid;
+  grid-template-rows: 1fr;
+  border-left: 0.12em solid transparent;
+  color: var(--text);
+  font-size: 1.32em;
+  line-height: 1.38;
+  transition:
+    grid-template-rows 0.65s var(--ease),
+    opacity 0.45s,
+    margin 0.5s var(--ease),
+    padding 0.5s var(--ease),
+    color 0.4s,
+    border-color 0.4s,
+    font-size 0.5s var(--ease);
+}
+
+.cw__line > span {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Present: the chrome goes, and each line collapses to its cue. */
+
+.stage:not([data-step="script"]) .cw__chrome {
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+
+.stage:not([data-step="script"]) .cw__body {
+  padding: 2.5em 1.8em 0;
+}
+
+.stage:not([data-step="script"]) .cw__page {
+  margin-bottom: 0.55em;
+  color: #FFF;
+  font-size: 2.2em;
+}
+
+.stage:not([data-step="script"]) .cw__block {
+  padding: 0.5em 0;
+  border-top-color: transparent;
+}
+
+.stage:not([data-step="script"]) .cw__num {
+  opacity: 0;
+}
+
+.stage:not([data-step="script"]) .cw__cue {
+  margin-bottom: 0;
+  color: #FFF;
+  font-size: 1.72em;
+  font-weight: 650;
+}
+
+.stage[data-step="present"] .cw__cue {
+  cursor: pointer;
+}
+
+.stage:not([data-step="script"]) .cw__line {
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+
+.stage .cw__block.is-open .cw__line {
+  grid-template-rows: 1fr;
+  margin-top: 0.45em;
+  padding-left: 0.85em;
+  border-left-color: #666;
+  color: #CFCFCF;
+  font-size: 1.24em;
+  opacity: 1;
+}
+
+.cw__block.is-pinned .cw__word {
+  color: var(--cue);
+  text-decoration-color: var(--cue);
+}
+
+.cw .cw__block.is-pinned .cw__pin {
+  width: 0.9em;
+  margin-right: 0.38em;
+  color: var(--cue);
+  opacity: 1;
+}
+
+/* Off book: the practice ladder, from first letters to cues to nothing. */
+
+.stage:is([data-rung="letters"], [data-rung="none"]) .cw__word {
+  opacity: 0;
+}
+
+.stage[data-rung="letters"] .cw__letters {
+  opacity: 1;
+}
+
+/* Footers: edit, present, and practice. */
+
+.cw__foot {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.4em);
+  transition: opacity 0.35s, transform 0.35s var(--ease), visibility 0s linear 0.35s;
+}
+
+.stage[data-step="script"] .cw__foot--edit,
+.stage[data-step="present"] .cw__foot--present,
+.stage[data-step="offbook"] .cw__foot--practice {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.45s 0.2s, transform 0.45s var(--ease) 0.2s, visibility 0s linear 0s;
+}
+
+.cw__foot--edit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 3em;
+  padding: 0 1.1em;
+  border-top: 1px solid var(--hair);
+  color: #8E8E8E;
+}
+
+/* Equal sides keep the page count centred, as in the app. */
+.cw__side {
+  display: flex;
+  flex: 1;
+  gap: 0.9em;
+}
+
+.cw__side--end {
+  justify-content: flex-end;
+}
+
+.cw__pager {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  color: #B0B0B0;
+  font-size: 1.1em;
+}
+
+.cw__pager svg {
+  width: 1.2em;
+  height: 1.2em;
+}
+
+.cw__foot--present {
+  right: 0.9em;
+  bottom: 0.9em;
+  left: 0.9em;
+  padding: 0.75em 0.8em 0.7em;
+  border-radius: 1.05em;
+  background: #262626;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  text-align: center;
+}
+
+.cw__foot--present p {
+  margin: 0;
+}
+
+.cw__status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55em;
+  color: #9A9A9A;
+  font-size: 1.02em;
+  font-weight: 600;
+}
+
+.cw__status svg {
+  width: 1.35em;
+  height: 1.35em;
+}
+
+.cw__open {
+  max-width: 0;
+  overflow: hidden;
+  margin-left: -0.55em;
+  opacity: 0;
+  white-space: nowrap;
+  transition: max-width 0.45s var(--ease), opacity 0.3s;
+}
+
+.stage.has-open .cw__open {
+  max-width: 9em;
+  opacity: 1;
+}
+
+.cw .cw__hints {
+  margin-top: 0.35em;
+  color: #CFCFCF;
+  font-size: 0.92em;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.cw__foot--practice {
+  bottom: 1.1em;
+  display: flex;
+  justify-content: center;
+}
+
+.cw__run {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.55em 1.1em;
+  border-radius: 999px;
+  color: #FFF;
+  background: rgba(242, 133, 46, 0.26);
+  font-size: 1.05em;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.cw__run svg {
+  width: 1.3em;
+  height: 1.3em;
+}
+
+.cw__run i {
+  width: 1px;
+  height: 1.2em;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* Only you: what the room sees is the slide; Cue is left out of the share. */
+
+.cw__ghost {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.6em;
+  margin: 0;
+  color: var(--ink);
+  font: 600 1.3em / 1.3 var(--sans);
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s;
+}
+
+.cw .cw__ghost svg {
+  width: 2em;
+  height: 2em;
+  stroke-width: 1.5;
+}
+
+.stage[data-step="private"] .cw {
+  background-color: rgba(30, 30, 30, 0);
+  box-shadow: none;
+}
+
+.stage[data-step="private"] .cw::after {
+  opacity: 1;
+}
+
+.stage[data-step="private"] .cw__body {
+  opacity: 0;
+}
+
+.stage[data-step="private"] .cw__ghost {
+  opacity: 1;
+  transition: opacity 0.45s 0.3s;
+}
+
+/* The pointer that hovers and pins a cue. */
+
+.pointer {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 2.3em;
+  height: 2.3em;
+  opacity: 0;
+  pointer-events: none;
+  filter: drop-shadow(0 0.15em 0.25em rgba(0, 0, 0, 0.28));
+}
+
+.pointer svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: #111;
+  stroke: #FFF;
+  stroke-width: 1.3;
+  stroke-linejoin: round;
+  transform-origin: 23% 12%;
+}
+
+/* Steps */
+
+.steps {
+  z-index: 1;
+  grid-area: 1 / 1;
+  align-self: end;
+  justify-self: end;
+  width: calc(100% * 29 / 64);
+  margin-bottom: calc(100% * 1.5 / 64);
+}
+
+.step-bar {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.tabs {
+  display: grid;
+  flex: 1;
+  grid-template-columns: repeat(4, auto);
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tab {
+  display: grid;
+  gap: 9px;
+  width: 100%;
+  padding: 8px 0 4px;
+  border: 0;
+  color: var(--graphite);
+  background: none;
+  font: 500 13px / 1.2 var(--sans);
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.tab:hover,
+.tab[aria-current="step"] {
+  color: var(--ink);
+}
+
+.tab__bar {
+  position: relative;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 1px;
+  background: var(--desk);
+}
+
+.tab__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.tab:is([data-state="past"], [data-state="current"]) .tab__fill {
+  transform: scaleX(1);
+}
+
+.autoplay {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin-top: 1px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: var(--graphite);
+  background: transparent;
+  cursor: pointer;
+}
+
+.autoplay:hover {
+  color: var(--ink);
+  background: rgba(22, 20, 15, 0.06);
+}
+
+.autoplay svg {
+  width: 13px;
+  height: 13px;
+  fill: currentColor;
+}
+
+.autoplay__play,
+.autoplay[data-playing="false"] .autoplay__pause {
+  display: none;
+}
+
+.autoplay[data-playing="false"] .autoplay__play {
+  display: block;
+}
+
+.captions {
+  display: grid;
+  margin-top: 16px;
+}
+
+.caption {
+  grid-area: 1 / 1;
+  margin: 0;
+  font: 400 clamp(18px, 1.45vw, 22px) / 1.36 var(--serif);
+  text-wrap: pretty;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s, visibility 0s linear 0.25s;
+}
+
+.caption.is-current {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.4s 0.22s, visibility 0s;
+}
+
+/* Features: a sheet over the page. The dialog is the dimmed backdrop, so a
+   click outside the sheet lands on it and closes it. */
+
+html:has(.features[open]) {
+  overflow: hidden;
+}
+
+.features {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: clamp(16px, 4vh, 48px) clamp(16px, 4vw, 48px);
+  overflow: hidden;
+  border: 0;
+  color: var(--ink);
+  background: rgba(22, 20, 15, 0.42);
+}
+
+.features[open] {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  place-items: center;
+}
+
+.features::backdrop {
+  background: transparent;
+}
+
+.features__sheet {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 1000px);
+  max-height: 100%;
+  border-radius: 20px;
+  background: var(--sheet);
+  box-shadow: 0 0 0 1px rgba(22, 20, 15, 0.08), 0 48px 96px -32px rgba(22, 20, 15, 0.5);
+}
+
+.features__body {
+  min-height: 0;
+  padding: clamp(24px, 5vh, 48px) clamp(24px, 4.4vw, 56px);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.features__close {
+  position: absolute;
+  z-index: 1;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: var(--ink);
+  background: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.features__close:hover {
+  background: rgba(22, 20, 15, 0.07);
+}
+
+.features__close svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.features h2 mark {
+  white-space: nowrap;
+}
+
+.features h2 {
+  margin: 0;
+  font: 700 clamp(32px, 4vw, 50px) / 1 var(--serif);
+  letter-spacing: -0.03em;
+}
+
+.features__groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(28px, 4vw, 56px);
+  margin: clamp(20px, 3.5vh, 32px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.features__group {
+  display: grid;
+  grid-template-columns: 2.6em minmax(0, 1fr);
+  padding: clamp(14px, 2.2vh, 20px) 0 clamp(16px, 2.6vh, 24px);
+  border-top: 1px solid var(--desk);
+}
+
+.features__num {
+  padding-top: 0.5em;
+  color: var(--graphite);
+  font: 500 12px / 1 var(--mono);
+  letter-spacing: 0.08em;
+}
+
+.features h3 {
+  margin: 0 0 8px;
+  font: 600 22px / 1.15 var(--serif);
+  letter-spacing: -0.015em;
+}
+
+.features__group ul {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  color: #4A463E;
+  font: 400 15px / 1.45 var(--sans);
+  list-style: none;
+}
+
+.features kbd {
+  padding: 0.12em 0.4em;
+  border-radius: 5px;
+  color: var(--ink);
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--desk), 0 1px 0 var(--desk);
+  font: 500 0.88em / 1 var(--mono);
+}
+
+.features__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  padding-top: clamp(16px, 2.6vh, 24px);
+  border-top: 1px solid var(--desk);
+}
+
+.features__foot p {
+  margin: 0;
+  color: var(--graphite);
+  font: 400 13px / 1.4 var(--mono);
+}
+
+@media (max-width: 860px) {
+  .features__groups {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Phones: the sheet rises from the bottom edge. */
+@media (max-width: 640px) {
+  .features {
+    padding: 24px 0 0;
+  }
+
+  .features[open] {
+    place-items: end stretch;
+  }
+
+  .features__sheet {
+    width: 100%;
+    border-radius: 20px 20px 0 0;
+  }
+}
+
+/* Narrow screens */
+
+@media (max-width: 420px) {
+  .actions {
+    gap: 10px;
+  }
+
+  .button {
+    gap: 8px;
+    min-height: 48px;
+    padding: 0 18px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    row-gap: 48px;
+  }
+
+  .demo {
+    width: 100%;
+    max-width: 720px;
+  }
+}
+
+/* Below this, the step labels no longer fit beside Cue's window, so they
+   move under the stage, like a caption under a figure. */
+@container demo (max-width: 639px) {
+  .steps {
+    grid-area: 2 / 1;
+    justify-self: stretch;
+    width: auto;
+    margin: 20px 0 0;
+  }
+}
+
+/* Phones: Cue's window takes the lead, and the slide sits behind it. */
+@container demo (max-width: 479px) {
+  .stage {
+    aspect-ratio: 40 / 47.5;
+    font-size: calc(100cqw / 40);
+  }
+
+  .slide {
+    top: 0;
+    width: 36em;
+    padding: 1.8em 2em 1.5em;
+  }
+
+  .slide__title {
+    font-size: 4em;
+  }
+
+  .cw {
+    top: 9em;
+    left: 0;
+    width: 31em;
+    height: 37.5em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage *,
+  .stage *::after {
+    transition-duration: 1ms !important;
+    transition-delay: 0s !important;
+  }
+}

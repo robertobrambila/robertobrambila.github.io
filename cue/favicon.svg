@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Cue">
+  <rect width="64" height="64" rx="14" fill="#F5F1E8"/>
+  <path d="M16 39C16 25 25 16 39 16C46 16 52 18 56 23L48 31C46 28 43 27 39 27C33 27 29 32 29 39C29 46 34 51 40 51C44 51 48 49 50 46L57 53C53 58 47 61 39 61C25 61 16 52 16 39Z" fill="#16140F"/>
+  <path d="M10 40C22 36 38 36 56 39" fill="none" stroke="#FFD83D" stroke-width="8" stroke-linecap="round"/>
+</svg>
